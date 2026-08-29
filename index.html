@@ -18,7 +18,7 @@
       --ivory: #f5f0e7;
       --ivory-deep: #e9e1d4;
       --ink: #182218;
-      --muted: #776f65;
+      --muted: #625b52;
       --brass: #b99454;
       --brass-soft: #c8aa73;
       --tomato: #c94733;
@@ -41,6 +41,8 @@
       color: var(--ink);
       background: var(--olive-950);
       font-family: var(--arabic);
+      font-weight: 400;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -154,7 +156,8 @@
       color: rgba(245, 240, 231, 0.78);
       background: transparent;
       padding: 8px 10px;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 500;
       line-height: 1.75;
       transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
     }
@@ -200,7 +203,7 @@
     .date-feedback {
       min-height: 18px;
       margin: 4px 0 0;
-      font-size: 10px;
+      font-size: 12px;
       color: #edb9ae;
       text-align: center;
     }
@@ -217,7 +220,8 @@
       color: rgba(245, 240, 231, 0.82);
       background: transparent;
       padding: 6px 14px;
-      font-size: 13px;
+      font-size: 14px;
+      font-weight: 500;
       transition: color 160ms ease, border-color 160ms ease, background 160ms ease, transform 160ms ease;
     }
 
@@ -243,7 +247,8 @@
     .field { display: grid; gap: 5px; }
 
     .field label {
-      font-size: 11px;
+      font-size: 12px;
+      font-weight: 500;
       color: rgba(245, 240, 231, 0.86);
     }
 
@@ -278,7 +283,7 @@
       color: var(--ivory);
       background: transparent;
       padding: 0 10px;
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .input-wrap input::placeholder { color: rgba(245,240,231,0.43); }
@@ -314,8 +319,8 @@
 
     .order-mini {
       margin: 12px 0 0;
-      font-size: 10px;
-      color: rgba(245,240,231,0.61);
+      font-size: 12px;
+      color: rgba(245,240,231,0.72);
       text-align: center;
       line-height: 1.8;
     }
@@ -403,8 +408,9 @@
     .pizza-copy p {
       margin: 0;
       color: var(--muted);
-      font-size: 10px;
-      line-height: 1.75;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.85;
     }
 
     .pizza-price {
@@ -412,7 +418,8 @@
       margin-top: 8px;
       color: #9a743d;
       font-family: var(--display), var(--arabic);
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: 600;
       direction: rtl;
     }
 
@@ -425,14 +432,15 @@
       border: 1px solid rgba(201, 71, 51, 0.72);
       border-radius: 999px;
       padding: 4px 9px;
-      font-size: 9px;
+      font-size: 12px;
+      font-weight: 500;
       cursor: pointer;
       user-select: none;
     }
 
     .honey-control input {
-      width: 13px;
-      height: 13px;
+      width: 15px;
+      height: 15px;
       accent-color: var(--tomato);
       margin: 0;
     }
@@ -446,8 +454,8 @@
     }
 
     .quantity button {
-      width: 31px;
-      height: 38px;
+      width: 36px;
+      height: 42px;
       border: 1px solid transparent;
       color: var(--ink);
       background: transparent;
@@ -537,7 +545,7 @@
       gap: 20px;
       padding: 0 clamp(40px, 5vw, 74px);
       color: #3f443b;
-      font-size: 11px;
+      font-size: 12px;
     }
 
     .footer-brand {
@@ -553,7 +561,7 @@
       display: block;
       font-family: var(--arabic);
       text-align: center;
-      font-size: 7px;
+      font-size: 10px;
       letter-spacing: 0.28em;
       margin-top: 7px;
     }
@@ -575,7 +583,7 @@
       border: 1px solid var(--brass);
       box-shadow: var(--shadow);
       padding: 14px 18px;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 1.8;
       opacity: 0;
       transform: translateY(14px);
@@ -625,7 +633,8 @@
     .success-content > p {
       margin: 9px 0 19px;
       color: rgba(245,240,231,0.65);
-      font-size: 12px;
+      font-size: 13.5px;
+      line-height: 1.9;
     }
 
     .booking-number {
@@ -643,7 +652,7 @@
       border: 1px solid var(--brass);
       padding: 18px 20px;
       text-align: right;
-      font-size: 12px;
+      font-size: 13.5px;
       line-height: 2;
     }
 
@@ -683,14 +692,14 @@
       .booking-panel { padding-top: 21px; }
       .booking-title-row { margin-bottom: 14px; }
       .booking-title-row h1 { font-size: 24px; }
-      .date-tab { min-height: 43px; line-height: 1.55; }
+      .date-tab { min-height: 43px; font-size: 12px; line-height: 1.55; }
       .ornament { height: 21px; }
       .time-grid { gap: 4px; }
-      .time-slot { min-height: 31px; padding-block: 3px; }
+      .time-slot { min-height: 34px; padding-block: 3px; font-size: 12.5px; }
       .booking-form { gap: 7px; }
       .field { gap: 3px; }
-      .field label { font-size: 9px; }
-      .input-wrap, .input-wrap input, .input-wrap select { min-height: 37px; height: 37px; }
+      .field label { font-size: 12px; }
+      .input-wrap, .input-wrap input, .input-wrap select { min-height: 40px; height: 40px; }
       .confirm-button { min-height: 49px; margin-top: 12px; }
       .order-mini { margin-top: 8px; }
       .menu-panel, .hero-panel { grid-template-rows: 74px minmax(0,1fr); }
@@ -762,6 +771,10 @@
 
       .pizza-photo-wrap { width: 86px; height: 86px; }
       .pizza-copy h2 { font-size: 23px; }
+      .pizza-copy p { font-size: 13px; line-height: 1.85; }
+      .pizza-price { font-size: 17px; }
+      .honey-control { min-height: 34px; padding: 5px 10px; font-size: 12px; }
+      .honey-control input { width: 16px; height: 16px; }
 
       .booking-panel {
         order: 3;
@@ -773,8 +786,11 @@
       .booking-title-row h1 { font-size: 26px; }
       .time-grid { grid-template-columns: repeat(3, 1fr); gap: 7px; }
       .time-slot { min-height: 48px; }
-      .field label { font-size: 12px; }
-      .input-wrap, .input-wrap input, .input-wrap select { height: 49px; }
+      .date-tab { font-size: 14px; }
+      .time-slot { font-size: 14px; }
+      .field label { font-size: 14px; }
+      .input-wrap, .input-wrap input, .input-wrap select { height: 52px; }
+      .input-wrap input, .input-wrap select { font-size: 15px; }
       .confirm-button { min-height: 58px; }
 
       .footer {
@@ -787,6 +803,7 @@
       }
 
       .footer-brand, .footer-location, .footer-note { justify-self: center; }
+      .footer { font-size: 13px; }
 
       .mobile-order-bar {
         display: flex;
@@ -812,8 +829,8 @@
         white-space: nowrap;
       }
 
-      .mobile-total small { color: rgba(245,240,231,0.62); font-size: 9px; }
-      .mobile-total strong { color: var(--brass-soft); font-family: var(--display), var(--arabic); font-size: 19px; }
+      .mobile-total small { color: rgba(245,240,231,0.72); font-size: 12px; }
+      .mobile-total strong { color: var(--brass-soft); font-family: var(--display), var(--arabic); font-size: 21px; }
 
       .mobile-jump {
         min-height: 46px;
@@ -821,25 +838,101 @@
         color: #fff;
         background: var(--tomato);
         padding: 9px 20px;
-        font-size: 13px;
+        font-size: 15px;
+        font-weight: 500;
       }
 
       .toast { bottom: 94px; right: 16px; max-width: calc(100vw - 32px); }
     }
 
     @media (max-width: 520px) {
-      .hero-panel { min-height: 397px; grid-template-rows: 70px 327px; }
-      .pizza-row { grid-template-columns: 75px minmax(0,1fr) 70px; gap: 10px; }
-      .pizza-photo-wrap { width: 72px; height: 72px; }
-      .pizza-copy p { display: none; }
-      .pizza-copy h2 { font-size: 20px; }
-      .pizza-price { font-size: 14px; }
-      .quantity { gap: 0; }
-      .quantity button { width: 25px; }
-      .honey-control { font-size: 8px; padding-inline: 7px; }
-      .date-tabs { gap: 6px; }
-      .date-tab { font-size: 10px; }
-      .time-slot { font-size: 11px; padding-inline: 6px; }
+      .hero-panel { min-height: 342px; grid-template-rows: 70px 272px; }
+      .hero-header { padding-inline: 16px; }
+      .hero-header::after { font-size: 28px; }
+      .hero-heading { font-size: 20px; }
+
+      .menu-list {
+        display: grid;
+        gap: 12px;
+        padding: 18px 14px 30px;
+      }
+
+      .pizza-row,
+      .pizza-row:last-child {
+        min-height: 0;
+        grid-template-columns: 92px minmax(0, 1fr);
+        grid-template-areas:
+          "photo copy"
+          "photo quantity";
+        column-gap: 14px;
+        row-gap: 4px;
+        align-items: start;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.52);
+        box-shadow: 0 10px 26px rgba(60, 45, 27, 0.06);
+      }
+
+      .pizza-row.has-quantity {
+        border-color: rgba(201, 71, 51, 0.5);
+        box-shadow: 0 12px 30px rgba(93, 51, 33, 0.1);
+      }
+
+      .pizza-photo-wrap {
+        grid-area: photo;
+        width: 90px;
+        height: 90px;
+        margin-top: 2px;
+      }
+
+      .pizza-copy { grid-area: copy; }
+      .pizza-copy h2 { margin-bottom: 5px; font-size: 22px; }
+      .pizza-copy p {
+        display: block;
+        color: #5f584f;
+        font-size: 13px;
+        line-height: 1.9;
+      }
+      .pizza-price { margin-top: 6px; font-size: 16px; }
+
+      .quantity {
+        grid-area: quantity;
+        justify-self: start;
+        justify-content: flex-start;
+        gap: 7px;
+        margin-top: 9px;
+      }
+
+      .quantity button {
+        width: 44px;
+        height: 44px;
+        border-color: var(--line);
+        border-radius: 50%;
+        background: rgba(245, 240, 231, 0.8);
+      }
+
+      .quantity output { min-width: 28px; font-size: 22px; }
+      .honey-control {
+        display: flex;
+        width: fit-content;
+        min-height: 44px;
+        margin-top: 9px;
+        padding-inline: 10px;
+        font-size: 12.5px;
+      }
+
+      .booking-panel { padding: 38px 16px 110px; }
+      .booking-title-row h1 { font-size: 28px; }
+      .date-tabs { gap: 8px; }
+      .date-tab { min-height: 58px; padding-inline: 8px; font-size: 13px; }
+      .time-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .time-slot { min-height: 50px; padding-inline: 8px; font-size: 14px; }
+      .field label { font-size: 13.5px; }
+      .input-wrap, .input-wrap input, .input-wrap select { min-height: 54px; height: 54px; }
+      .input-wrap input, .input-wrap select { font-size: 16px; }
+      .confirm-button { font-size: 18px; }
+      .order-mini { font-size: 12px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
