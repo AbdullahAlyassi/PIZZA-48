@@ -445,6 +445,104 @@
       margin: 0;
     }
 
+    .veggie-customization {
+      grid-column: 2 / 4;
+      width: 100%;
+      margin-top: -5px;
+    }
+
+    .veggie-customize-trigger {
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: 1px solid rgba(126, 103, 64, 0.48);
+      border-radius: 999px;
+      color: var(--olive-900);
+      background: rgba(255, 255, 255, 0.34);
+      padding: 5px 11px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+    }
+
+    .veggie-customize-trigger .material-symbols-rounded { font-size: 17px; }
+
+    .veggie-customize-trigger:hover:not(:disabled),
+    .veggie-customize-trigger:focus-visible:not(:disabled),
+    .veggie-customize-trigger[aria-expanded="true"] {
+      outline: none;
+      color: var(--tomato-dark);
+      border-color: rgba(201, 71, 51, 0.62);
+      background: rgba(201, 71, 51, 0.05);
+    }
+
+    .veggie-customize-trigger:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .veggie-options {
+      margin-top: 10px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .veggie-options[hidden] { display: none; }
+
+    .veggie-options-title {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--muted);
+      font-size: 11.5px;
+      line-height: 1.7;
+    }
+
+    .veggie-option-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .veggie-option {
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(126, 103, 64, 0.24);
+      border-radius: 9px;
+      padding: 6px 8px;
+      color: var(--ink);
+      background: rgba(245, 240, 231, 0.72);
+      font-size: 11.5px;
+      cursor: pointer;
+    }
+
+    .veggie-option:has(input:checked) {
+      color: var(--tomato-dark);
+      border-color: rgba(201, 71, 51, 0.5);
+      background: rgba(201, 71, 51, 0.06);
+    }
+
+    .veggie-option input {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+      margin: 0;
+      accent-color: var(--tomato);
+    }
+
+    .veggie-options-note {
+      display: block;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 10.5px;
+      line-height: 1.7;
+    }
+
     .quantity {
       direction: ltr;
       display: flex;
@@ -775,6 +873,8 @@
       .pizza-price { font-size: 17px; }
       .honey-control { min-height: 34px; padding: 5px 10px; font-size: 12px; }
       .honey-control input { width: 16px; height: 16px; }
+      .veggie-customize-trigger { min-height: 38px; font-size: 12px; }
+      .veggie-option { font-size: 12px; }
 
       .booking-panel {
         order: 3;
@@ -879,6 +979,13 @@
         box-shadow: 0 12px 30px rgba(93, 51, 33, 0.1);
       }
 
+      .pizza-row[data-item="veggie"] {
+        grid-template-areas:
+          "photo copy"
+          "photo quantity"
+          "custom custom";
+      }
+
       .pizza-photo-wrap {
         grid-area: photo;
         width: 90px;
@@ -921,6 +1028,23 @@
         padding-inline: 10px;
         font-size: 12.5px;
       }
+
+      .veggie-customization {
+        grid-area: custom;
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .veggie-customize-trigger {
+        width: 100%;
+        min-height: 44px;
+        font-size: 13px;
+      }
+
+      .veggie-options { padding: 12px; }
+      .veggie-options-title { font-size: 12.5px; }
+      .veggie-option { min-height: 44px; font-size: 12.5px; }
+      .veggie-options-note { font-size: 11.5px; }
 
       .booking-panel { padding: 38px 16px 110px; }
       .booking-title-row h1 { font-size: 28px; }
@@ -1072,6 +1196,22 @@
             <output class="qty-value" aria-live="polite">0</output>
             <button type="button" class="qty-plus" aria-label="إضافة خضار"><span class="material-symbols-rounded">add</span></button>
           </div>
+          <div class="veggie-customization">
+            <button class="veggie-customize-trigger" id="veggie-customize-trigger" type="button" aria-expanded="false" aria-controls="veggie-options" disabled>
+              <span class="material-symbols-rounded" aria-hidden="true">tune</span>
+              <span>تعديل الخضار</span>
+            </button>
+            <div class="veggie-options" id="veggie-options" hidden>
+              <span class="veggie-options-title">اختر المكوّنات التي لا تريدها</span>
+              <div class="veggie-option-grid">
+                <label class="veggie-option"><input type="checkbox" value="البصل" data-veggie-remove /><span>بدون بصل</span></label>
+                <label class="veggie-option"><input type="checkbox" value="الفلفل الأخضر" data-veggie-remove /><span>بدون فلفل أخضر</span></label>
+                <label class="veggie-option"><input type="checkbox" value="الزيتون" data-veggie-remove /><span>بدون زيتون</span></label>
+                <label class="veggie-option"><input type="checkbox" value="الطماطم" data-veggie-remove /><span>بدون طماطم</span></label>
+              </div>
+              <small class="veggie-options-note">يُطبّق التعديل على جميع بيتزا الخضار في الطلب</small>
+            </div>
+          </div>
         </article>
       </div>
     </section>
@@ -1134,7 +1274,8 @@
         quantities: { margherita: 0, pepperoni: 0, truffle: 0, veggie: 0 },
         selectedDate: null,
         selectedTime: null,
-        hotHoney: false
+        hotHoney: false,
+        removedVeggies: []
       };
 
       const els = {
@@ -1147,6 +1288,9 @@
         plate: document.getElementById("plate"),
         carColor: document.getElementById("car-color"),
         honey: document.getElementById("hot-honey"),
+        veggieTrigger: document.getElementById("veggie-customize-trigger"),
+        veggieOptions: document.getElementById("veggie-options"),
+        veggieOptionInputs: [...document.querySelectorAll("[data-veggie-remove]")],
         orderMini: document.getElementById("order-mini"),
         mobileTotal: document.getElementById("mobile-total"),
         mobileJump: document.getElementById("mobile-jump"),
@@ -1298,6 +1442,7 @@
         const count = totalItems();
         const total = totalPrice();
         const honeyAllowed = state.quantities.pepperoni > 0;
+        const veggieCustomizationAllowed = state.quantities.veggie > 0;
 
         if (!honeyAllowed && state.hotHoney) {
           state.hotHoney = false;
@@ -1306,6 +1451,15 @@
 
         els.honey.disabled = !honeyAllowed;
         els.honey.closest(".honey-control").style.opacity = honeyAllowed ? "1" : "0.55";
+        els.veggieTrigger.disabled = !veggieCustomizationAllowed;
+
+        if (!veggieCustomizationAllowed) {
+          state.removedVeggies = [];
+          els.veggieOptionInputs.forEach(input => { input.checked = false; });
+          els.veggieOptions.hidden = true;
+          els.veggieTrigger.setAttribute("aria-expanded", "false");
+        }
+
         els.mobileTotal.textContent = `${total} د.إ`;
         els.orderMini.textContent = count
           ? `${count} ${count === 1 ? "بيتزا" : "بيتزا"} · الإجمالي ${total} د.إ · الاستلام من السيارة`
@@ -1369,8 +1523,13 @@
       function orderLines() {
         return Object.entries(state.quantities)
           .filter(([, quantity]) => quantity > 0)
-          .map(([key, quantity]) => `${names[key]} × ${quantity}`)
-          .concat(state.hotHoney ? ["عسل حار"] : []);
+          .map(([key, quantity]) => {
+            const removalNote = key === "veggie" && state.removedVeggies.length
+              ? ` (بدون ${state.removedVeggies.join("، بدون ")})`
+              : "";
+            return `${names[key]} × ${quantity}${removalNote}`;
+          })
+          .concat(state.hotHoney ? ["إضافة عسل حار للببروني"] : []);
       }
 
       function escapeHTML(value) {
@@ -1431,6 +1590,26 @@
         }
         state.hotHoney = event.target.checked;
         updateOrderSummary();
+      });
+
+      els.veggieTrigger.addEventListener("click", () => {
+        if (state.quantities.veggie === 0) {
+          showToast("أضف بيتزا الخضار أولًا لتعديل مكوّناتها");
+          return;
+        }
+
+        const willOpen = els.veggieOptions.hidden;
+        els.veggieOptions.hidden = !willOpen;
+        els.veggieTrigger.setAttribute("aria-expanded", String(willOpen));
+      });
+
+      els.veggieOptionInputs.forEach(input => {
+        input.addEventListener("change", () => {
+          state.removedVeggies = els.veggieOptionInputs
+            .filter(option => option.checked)
+            .map(option => option.value);
+          updateOrderSummary();
+        });
       });
 
       els.calendar.addEventListener("change", event => {
