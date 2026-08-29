@@ -1,0 +1,1383 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1d291c" />
+  <meta name="description" content="احجز بيتزا PIZZA 48 للاستلام من السيارة في الشارقة يومي الجمعة والسبت." />
+  <title>PIZZA 48 — حجز البيتزا</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300,0,0&family=Noto+Kufi+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --olive-950: #172017;
+      --olive-900: #1d291c;
+      --olive-850: #243224;
+      --olive-800: #2c3b2a;
+      --ivory: #f5f0e7;
+      --ivory-deep: #e9e1d4;
+      --ink: #182218;
+      --muted: #776f65;
+      --brass: #b99454;
+      --brass-soft: #c8aa73;
+      --tomato: #c94733;
+      --tomato-dark: #a93627;
+      --line: rgba(126, 103, 64, 0.28);
+      --white-line: rgba(201, 170, 112, 0.28);
+      --shadow: 0 22px 60px rgba(15, 19, 14, 0.2);
+      --arabic: "Noto Kufi Arabic", Tahoma, Arial, sans-serif;
+      --display: "Cormorant Garamond", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--olive-950);
+      font-family: var(--arabic);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    img { display: block; max-width: 100%; }
+
+    .material-symbols-rounded {
+      font-family: "Material Symbols Rounded";
+      font-weight: 300;
+      font-style: normal;
+      font-size: 23px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: "liga";
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "liga";
+    }
+
+    .site-shell {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: minmax(345px, 29.2fr) minmax(470px, 36.9fr) minmax(420px, 33.9fr);
+      grid-template-rows: minmax(0, 1fr) 84px;
+      direction: ltr;
+      overflow: hidden;
+      background: var(--ivory);
+    }
+
+    .booking-panel {
+      grid-row: 1 / 3;
+      grid-column: 1;
+      direction: rtl;
+      color: var(--ivory);
+      background: var(--olive-900);
+      padding: clamp(24px, 3.1vh, 42px) clamp(28px, 3.4vw, 48px) 30px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--brass) transparent;
+      position: relative;
+    }
+
+    .booking-inner {
+      width: min(100%, 360px);
+      min-height: 100%;
+      margin-inline: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .booking-title-row {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: clamp(18px, 2.4vh, 28px);
+    }
+
+    .booking-title-row h1 {
+      margin: 0;
+      font-size: clamp(24px, 2.1vw, 32px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+
+    .calendar-trigger {
+      width: 38px;
+      height: 38px;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      color: var(--brass-soft);
+      background: transparent;
+      display: grid;
+      place-items: center;
+      transition: border-color 180ms ease, background 180ms ease;
+      position: relative;
+    }
+
+    .calendar-trigger:hover,
+    .calendar-trigger:focus-visible {
+      outline: none;
+      border-color: var(--white-line);
+      background: rgba(255,255,255,0.04);
+    }
+
+    #calendar-input {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .date-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .date-tab {
+      min-height: 52px;
+      border: 1px solid var(--white-line);
+      color: rgba(245, 240, 231, 0.78);
+      background: transparent;
+      padding: 8px 10px;
+      font-size: 12px;
+      line-height: 1.75;
+      transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+    }
+
+    .date-tab:hover,
+    .date-tab:focus-visible {
+      outline: none;
+      color: var(--ivory);
+      border-color: rgba(201, 170, 112, 0.65);
+    }
+
+    .date-tab.is-selected {
+      color: var(--ivory);
+      border-color: var(--brass);
+      background: rgba(185, 148, 84, 0.06);
+      box-shadow: inset 0 0 0 1px rgba(185, 148, 84, 0.08);
+    }
+
+    .ornament {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--brass);
+      margin: 4px 0 2px;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: var(--white-line);
+    }
+
+    .ornament-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--brass);
+      transform: rotate(45deg);
+    }
+
+    .date-feedback {
+      min-height: 18px;
+      margin: 4px 0 0;
+      font-size: 10px;
+      color: #edb9ae;
+      text-align: center;
+    }
+
+    .time-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+
+    .time-slot {
+      min-height: clamp(35px, 4.15vh, 43px);
+      border: 1px solid var(--white-line);
+      color: rgba(245, 240, 231, 0.82);
+      background: transparent;
+      padding: 6px 14px;
+      font-size: 13px;
+      transition: color 160ms ease, border-color 160ms ease, background 160ms ease, transform 160ms ease;
+    }
+
+    .time-slot:hover,
+    .time-slot:focus-visible {
+      outline: none;
+      color: var(--ivory);
+      border-color: rgba(201, 170, 112, 0.65);
+      transform: translateY(-1px);
+    }
+
+    .time-slot.is-selected {
+      color: var(--ivory);
+      border-color: var(--brass);
+      background: rgba(185, 148, 84, 0.08);
+    }
+
+    .booking-form {
+      display: grid;
+      gap: 10px;
+    }
+
+    .field { display: grid; gap: 5px; }
+
+    .field label {
+      font-size: 11px;
+      color: rgba(245, 240, 231, 0.86);
+    }
+
+    .input-wrap {
+      min-height: 44px;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      align-items: center;
+      border: 1px solid var(--white-line);
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+
+    .input-wrap:focus-within {
+      border-color: var(--brass);
+      background: rgba(255,255,255,0.025);
+    }
+
+    .input-wrap.is-invalid { border-color: #dc7868; }
+
+    .input-wrap .material-symbols-rounded {
+      color: var(--brass);
+      justify-self: center;
+      font-size: 22px;
+    }
+
+    .input-wrap input,
+    .input-wrap select {
+      width: 100%;
+      height: 42px;
+      border: 0;
+      outline: 0;
+      color: var(--ivory);
+      background: transparent;
+      padding: 0 10px;
+      font-size: 12px;
+    }
+
+    .input-wrap input::placeholder { color: rgba(245,240,231,0.43); }
+    .input-wrap select { appearance: none; color: rgba(245,240,231,0.75); }
+    .input-wrap option { color: var(--ink); background: var(--ivory); }
+
+    .confirm-button,
+    .primary-button {
+      border: 0;
+      color: #fff9f2;
+      background: var(--tomato);
+      min-height: 57px;
+      padding: 13px 22px;
+      font-size: 17px;
+      font-weight: 500;
+      transition: background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .confirm-button { margin-top: 18px; }
+
+    .confirm-button:hover,
+    .primary-button:hover {
+      background: var(--tomato-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(126, 38, 27, 0.28);
+    }
+
+    .confirm-button:focus-visible,
+    .primary-button:focus-visible {
+      outline: 2px solid var(--ivory);
+      outline-offset: 3px;
+    }
+
+    .order-mini {
+      margin: 12px 0 0;
+      font-size: 10px;
+      color: rgba(245,240,231,0.61);
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .menu-panel {
+      grid-column: 2;
+      grid-row: 1;
+      direction: rtl;
+      background: var(--ivory);
+      min-width: 0;
+      display: grid;
+      grid-template-rows: 90px minmax(0, 1fr);
+    }
+
+    .menu-header,
+    .hero-header {
+      height: 90px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 240, 231, 0.98);
+      display: flex;
+      align-items: center;
+    }
+
+    .menu-header {
+      direction: ltr;
+      padding: 0 clamp(36px, 5vw, 74px);
+      justify-content: flex-start;
+    }
+
+    .wordmark {
+      font-family: var(--display);
+      font-size: clamp(34px, 3.05vw, 49px);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: #21261f;
+      white-space: nowrap;
+    }
+
+    .menu-list {
+      overflow-y: auto;
+      padding: 24px clamp(40px, 4.4vw, 68px) 18px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--brass) transparent;
+    }
+
+    .pizza-row {
+      min-height: calc((100% - 3px) / 4);
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr) 92px;
+      gap: clamp(16px, 2vw, 28px);
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+      padding: 13px 0;
+    }
+
+    .pizza-row:last-child { border-bottom: 0; }
+
+    .pizza-photo-wrap {
+      width: 106px;
+      height: 106px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 11px 18px rgba(44, 33, 19, 0.18);
+      border: 1px solid rgba(126, 103, 64, 0.18);
+      background: #d8c6ad;
+    }
+
+    .pizza-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.04);
+    }
+
+    .pizza-copy { min-width: 0; }
+
+    .pizza-copy h2 {
+      margin: 0 0 6px;
+      font-size: clamp(21px, 2vw, 29px);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+    }
+
+    .pizza-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.75;
+    }
+
+    .pizza-price {
+      display: inline-block;
+      margin-top: 8px;
+      color: #9a743d;
+      font-family: var(--display), var(--arabic);
+      font-size: 16px;
+      direction: rtl;
+    }
+
+    .honey-control {
+      margin-top: 7px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--tomato);
+      border: 1px solid rgba(201, 71, 51, 0.72);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 9px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .honey-control input {
+      width: 13px;
+      height: 13px;
+      accent-color: var(--tomato);
+      margin: 0;
+    }
+
+    .quantity {
+      direction: ltr;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+    }
+
+    .quantity button {
+      width: 31px;
+      height: 38px;
+      border: 1px solid transparent;
+      color: var(--ink);
+      background: transparent;
+      display: grid;
+      place-items: center;
+      transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .quantity button:hover,
+    .quantity button:focus-visible {
+      outline: none;
+      color: var(--tomato);
+      border-color: var(--line);
+      background: rgba(185,148,84,0.05);
+    }
+
+    .quantity output {
+      min-width: 25px;
+      text-align: center;
+      font-family: var(--display);
+      font-size: 20px;
+      color: var(--ink);
+    }
+
+    .hero-panel {
+      grid-column: 3;
+      grid-row: 1;
+      direction: rtl;
+      display: grid;
+      grid-template-rows: 90px minmax(0, 1fr);
+      min-width: 0;
+      background: #201a14;
+    }
+
+    .hero-header {
+      justify-content: flex-start;
+      padding: 0 clamp(34px, 4vw, 63px);
+    }
+
+    .hero-heading {
+      margin: 0;
+      font-size: clamp(22px, 2vw, 30px);
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .hero-heading::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 50%;
+      width: 45px;
+      height: 1px;
+      background: var(--tomato);
+      transform: translateX(50%);
+    }
+
+    .hero-image {
+      min-height: 0;
+      background-color: #1c1712;
+      background-image: url("https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=1800&q=88");
+      background-size: cover;
+      background-position: 52% center;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(18, 14, 10, 0.04);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .footer {
+      grid-column: 2 / 4;
+      grid-row: 2;
+      direction: rtl;
+      background: var(--ivory);
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+      padding: 0 clamp(40px, 5vw, 74px);
+      color: #3f443b;
+      font-size: 11px;
+    }
+
+    .footer-brand {
+      justify-self: end;
+      direction: ltr;
+      font-family: var(--display);
+      font-size: 23px;
+      color: var(--ink);
+      line-height: 0.85;
+    }
+
+    .footer-brand small {
+      display: block;
+      font-family: var(--arabic);
+      text-align: center;
+      font-size: 7px;
+      letter-spacing: 0.28em;
+      margin-top: 7px;
+    }
+
+    .footer-location { justify-self: center; }
+    .footer-location span { color: var(--brass); padding: 0 10px; }
+    .footer-note { justify-self: start; }
+
+    .mobile-order-bar { display: none; }
+
+    .toast {
+      position: fixed;
+      z-index: 50;
+      right: 24px;
+      bottom: 24px;
+      max-width: min(420px, calc(100vw - 48px));
+      color: var(--ivory);
+      background: var(--olive-900);
+      border: 1px solid var(--brass);
+      box-shadow: var(--shadow);
+      padding: 14px 18px;
+      font-size: 12px;
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(14px);
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .toast.is-visible { opacity: 1; transform: translateY(0); }
+
+    .success-dialog {
+      width: min(540px, calc(100vw - 32px));
+      max-height: calc(100svh - 32px);
+      border: 1px solid rgba(185,148,84,0.7);
+      padding: 0;
+      color: var(--ivory);
+      background: var(--olive-900);
+      box-shadow: 0 35px 110px rgba(0,0,0,0.52);
+      overflow: auto;
+    }
+
+    .success-dialog::backdrop { background: rgba(9,13,9,0.72); backdrop-filter: blur(4px); }
+
+    .success-content {
+      padding: 35px clamp(24px, 5vw, 48px) 32px;
+      text-align: center;
+    }
+
+    .success-seal {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 18px;
+      border: 1px solid var(--brass);
+      border-radius: 50%;
+      color: var(--brass-soft);
+      display: grid;
+      place-items: center;
+    }
+
+    .success-seal .material-symbols-rounded { font-size: 39px; }
+
+    .success-content h2 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 500;
+    }
+
+    .success-content > p {
+      margin: 9px 0 19px;
+      color: rgba(245,240,231,0.65);
+      font-size: 12px;
+    }
+
+    .booking-number {
+      display: inline-block;
+      color: var(--brass-soft);
+      direction: rtl;
+      font-family: var(--display), var(--arabic);
+      font-size: 18px;
+      margin-bottom: 22px;
+    }
+
+    .success-card {
+      color: var(--ink);
+      background: var(--ivory);
+      border: 1px solid var(--brass);
+      padding: 18px 20px;
+      text-align: right;
+      font-size: 12px;
+      line-height: 2;
+    }
+
+    .success-line {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .success-line:last-child { border-bottom: 0; }
+    .success-line strong { color: #906b35; font-weight: 500; }
+
+    .dialog-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .secondary-button {
+      min-height: 49px;
+      color: var(--ivory);
+      background: transparent;
+      border: 1px solid rgba(185,148,84,0.65);
+    }
+
+    .secondary-button:hover,
+    .secondary-button:focus-visible {
+      outline: none;
+      border-color: var(--brass);
+      background: rgba(255,255,255,0.04);
+    }
+
+    @media (max-height: 860px) and (min-width: 901px) {
+      .booking-panel { padding-top: 21px; }
+      .booking-title-row { margin-bottom: 14px; }
+      .booking-title-row h1 { font-size: 24px; }
+      .date-tab { min-height: 43px; line-height: 1.55; }
+      .ornament { height: 21px; }
+      .time-grid { gap: 4px; }
+      .time-slot { min-height: 31px; padding-block: 3px; }
+      .booking-form { gap: 7px; }
+      .field { gap: 3px; }
+      .field label { font-size: 9px; }
+      .input-wrap, .input-wrap input, .input-wrap select { min-height: 37px; height: 37px; }
+      .confirm-button { min-height: 49px; margin-top: 12px; }
+      .order-mini { margin-top: 8px; }
+      .menu-panel, .hero-panel { grid-template-rows: 74px minmax(0,1fr); }
+      .menu-header, .hero-header { height: 74px; }
+      .pizza-row { padding-block: 8px; grid-template-columns: 88px minmax(0,1fr) 84px; }
+      .pizza-photo-wrap { width: 82px; height: 82px; }
+      .menu-list { padding-top: 12px; padding-bottom: 10px; }
+    }
+
+    @media (max-width: 1100px) and (min-width: 901px) {
+      .site-shell { grid-template-columns: minmax(330px, 34fr) minmax(430px, 42fr) minmax(280px, 24fr); }
+      .booking-panel { padding-inline: 26px; }
+      .menu-list { padding-inline: 30px; }
+      .pizza-row { grid-template-columns: 90px minmax(0,1fr) 78px; gap: 12px; }
+      .pizza-photo-wrap { width: 84px; height: 84px; }
+    }
+
+    @media (max-width: 900px) {
+      body { background: var(--ivory); }
+
+      .site-shell {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+      }
+
+      .hero-panel {
+        order: 1;
+        min-height: 480px;
+        grid-template-rows: 74px 406px;
+      }
+
+      .hero-header {
+        height: 74px;
+        justify-content: space-between;
+        padding: 0 22px;
+      }
+
+      .hero-header::after {
+        content: "PIZZA 48";
+        direction: ltr;
+        font-family: var(--display);
+        font-size: 31px;
+        color: var(--ink);
+      }
+
+      .hero-heading { font-size: 21px; }
+      .hero-image { background-position: center 54%; }
+
+      .menu-panel {
+        order: 2;
+        display: block;
+      }
+
+      .menu-header { display: none; }
+
+      .menu-list {
+        overflow: visible;
+        padding: 14px 20px 24px;
+      }
+
+      .pizza-row {
+        min-height: 154px;
+        grid-template-columns: 92px minmax(0,1fr) 78px;
+        gap: 13px;
+        padding: 19px 0;
+      }
+
+      .pizza-photo-wrap { width: 86px; height: 86px; }
+      .pizza-copy h2 { font-size: 23px; }
+
+      .booking-panel {
+        order: 3;
+        overflow: visible;
+        padding: 36px 20px 104px;
+      }
+
+      .booking-inner { width: min(100%, 560px); }
+      .booking-title-row h1 { font-size: 26px; }
+      .time-grid { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+      .time-slot { min-height: 48px; }
+      .field label { font-size: 12px; }
+      .input-wrap, .input-wrap input, .input-wrap select { height: 49px; }
+      .confirm-button { min-height: 58px; }
+
+      .footer {
+        order: 4;
+        min-height: 126px;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        padding: 24px;
+      }
+
+      .footer-brand, .footer-location, .footer-note { justify-self: center; }
+
+      .mobile-order-bar {
+        display: flex;
+        position: fixed;
+        z-index: 20;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        min-height: 76px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        color: var(--ivory);
+        background: rgba(29,41,28,0.97);
+        border-top: 1px solid var(--brass);
+        padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
+        box-shadow: 0 -12px 35px rgba(16,21,15,0.24);
+      }
+
+      .mobile-total {
+        display: grid;
+        gap: 2px;
+        white-space: nowrap;
+      }
+
+      .mobile-total small { color: rgba(245,240,231,0.62); font-size: 9px; }
+      .mobile-total strong { color: var(--brass-soft); font-family: var(--display), var(--arabic); font-size: 19px; }
+
+      .mobile-jump {
+        min-height: 46px;
+        border: 0;
+        color: #fff;
+        background: var(--tomato);
+        padding: 9px 20px;
+        font-size: 13px;
+      }
+
+      .toast { bottom: 94px; right: 16px; max-width: calc(100vw - 32px); }
+    }
+
+    @media (max-width: 520px) {
+      .hero-panel { min-height: 397px; grid-template-rows: 70px 327px; }
+      .pizza-row { grid-template-columns: 75px minmax(0,1fr) 70px; gap: 10px; }
+      .pizza-photo-wrap { width: 72px; height: 72px; }
+      .pizza-copy p { display: none; }
+      .pizza-copy h2 { font-size: 20px; }
+      .pizza-price { font-size: 14px; }
+      .quantity { gap: 0; }
+      .quantity button { width: 25px; }
+      .honey-control { font-size: 8px; padding-inline: 7px; }
+      .date-tabs { gap: 6px; }
+      .date-tab { font-size: 10px; }
+      .time-slot { font-size: 11px; padding-inline: 6px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="site-shell">
+    <aside class="booking-panel" id="booking" aria-labelledby="booking-title">
+      <div class="booking-inner">
+        <div class="booking-title-row">
+          <h1 id="booking-title">موعد الاستلام</h1>
+          <label class="calendar-trigger" title="اختيار التاريخ" aria-label="اختيار التاريخ من التقويم">
+            <span class="material-symbols-rounded" aria-hidden="true">calendar_month</span>
+            <input id="calendar-input" type="date" aria-label="تاريخ الاستلام" />
+          </label>
+        </div>
+
+        <div class="date-tabs" id="date-tabs" aria-label="أيام الاستلام المتاحة"></div>
+        <p class="date-feedback" id="date-feedback" aria-live="polite"></p>
+
+        <div class="ornament" aria-hidden="true"><span class="ornament-dot"></span></div>
+        <div class="time-grid" id="time-grid" aria-label="المواعيد المتاحة"></div>
+        <div class="ornament" aria-hidden="true"><span class="ornament-dot"></span></div>
+
+        <form class="booking-form" id="booking-form" novalidate>
+          <div class="field">
+            <label for="phone">رقم الجوال</label>
+            <div class="input-wrap" data-field="phone">
+              <span class="material-symbols-rounded" aria-hidden="true">call</span>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="050 123 4567" aria-describedby="form-message" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="plate">رقم اللوحة</label>
+            <div class="input-wrap" data-field="plate">
+              <span class="material-symbols-rounded" aria-hidden="true">pin</span>
+              <input id="plate" name="plate" type="text" autocomplete="off" placeholder="A 12345" maxlength="16" aria-describedby="form-message" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="car-color">لون السيارة</label>
+            <div class="input-wrap" data-field="car-color">
+              <span class="material-symbols-rounded" aria-hidden="true">directions_car</span>
+              <select id="car-color" name="carColor" aria-describedby="form-message">
+                <option value="">اختر لون السيارة</option>
+                <option>أبيض</option>
+                <option>أسود</option>
+                <option>فضي</option>
+                <option>رمادي</option>
+                <option>أحمر</option>
+                <option>أزرق</option>
+                <option>أخضر</option>
+                <option>أخرى</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="confirm-button" type="submit">تأكيد الحجز</button>
+          <p class="order-mini" id="order-mini">اختر بيتزتك أولًا · الاستلام من السيارة في الشارقة</p>
+        </form>
+      </div>
+    </aside>
+
+    <section class="menu-panel" id="menu" aria-labelledby="menu-title">
+      <header class="menu-header">
+        <div class="wordmark" aria-label="Pizza 48">PIZZA 48</div>
+      </header>
+
+      <div class="menu-list">
+        <article class="pizza-row" data-item="margherita" data-price="32">
+          <div class="pizza-photo-wrap">
+            <img class="pizza-photo" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=420&h=420&q=86" alt="بيتزا مارغريتا" />
+          </div>
+          <div class="pizza-copy">
+            <h2>مارغريتا</h2>
+            <p>طماطم، موزاريلا، ريحان طازج</p>
+            <span class="pizza-price">32 د.إ</span>
+          </div>
+          <div class="quantity" aria-label="كمية مارغريتا">
+            <button type="button" class="qty-minus" aria-label="تقليل مارغريتا"><span class="material-symbols-rounded">remove</span></button>
+            <output class="qty-value" aria-live="polite">0</output>
+            <button type="button" class="qty-plus" aria-label="إضافة مارغريتا"><span class="material-symbols-rounded">add</span></button>
+          </div>
+        </article>
+
+        <article class="pizza-row" data-item="pepperoni" data-price="39">
+          <div class="pizza-photo-wrap">
+            <img class="pizza-photo" src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=420&h=420&q=86" alt="بيتزا ببروني" />
+          </div>
+          <div class="pizza-copy">
+            <h2>ببروني</h2>
+            <p>ببروني، موزاريلا، صلصة الطماطم</p>
+            <span class="pizza-price">39 د.إ</span>
+            <label class="honey-control">
+              <input id="hot-honey" type="checkbox" />
+              <span>عسل حار +4 د.إ</span>
+            </label>
+          </div>
+          <div class="quantity" aria-label="كمية ببروني">
+            <button type="button" class="qty-minus" aria-label="تقليل ببروني"><span class="material-symbols-rounded">remove</span></button>
+            <output class="qty-value" aria-live="polite">0</output>
+            <button type="button" class="qty-plus" aria-label="إضافة ببروني"><span class="material-symbols-rounded">add</span></button>
+          </div>
+        </article>
+
+        <article class="pizza-row" data-item="truffle" data-price="45">
+          <div class="pizza-photo-wrap">
+            <img class="pizza-photo" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=420&h=420&q=86" alt="بيتزا ترافل" />
+          </div>
+          <div class="pizza-copy">
+            <h2>ترافل</h2>
+            <p>كريمة الترافل، موزاريلا، فطر</p>
+            <span class="pizza-price">45 د.إ</span>
+          </div>
+          <div class="quantity" aria-label="كمية ترافل">
+            <button type="button" class="qty-minus" aria-label="تقليل ترافل"><span class="material-symbols-rounded">remove</span></button>
+            <output class="qty-value" aria-live="polite">0</output>
+            <button type="button" class="qty-plus" aria-label="إضافة ترافل"><span class="material-symbols-rounded">add</span></button>
+          </div>
+        </article>
+
+        <article class="pizza-row" data-item="veggie" data-price="36">
+          <div class="pizza-photo-wrap">
+            <img class="pizza-photo" src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=420&h=420&q=86" alt="بيتزا خضار" />
+          </div>
+          <div class="pizza-copy">
+            <h2>خضار</h2>
+            <p>خضار موسمية، موزاريلا، زيتون</p>
+            <span class="pizza-price">36 د.إ</span>
+          </div>
+          <div class="quantity" aria-label="كمية خضار">
+            <button type="button" class="qty-minus" aria-label="تقليل خضار"><span class="material-symbols-rounded">remove</span></button>
+            <output class="qty-value" aria-live="polite">0</output>
+            <button type="button" class="qty-plus" aria-label="إضافة خضار"><span class="material-symbols-rounded">add</span></button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="hero-panel" aria-labelledby="menu-title">
+      <header class="hero-header">
+        <h2 class="hero-heading" id="menu-title">اختر بيتزتك</h2>
+      </header>
+      <div class="hero-image" role="img" aria-label="بيتزا إيطالية مخبوزة طازجة"></div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-brand">PIZZA 48<small>SHJ</small></div>
+      <div class="footer-location">الشارقة <span>•</span> استلام من السيارة</div>
+      <div class="footer-note">جودة نابوليتانية، جاهزة لاستلامك</div>
+    </footer>
+  </main>
+
+  <div class="mobile-order-bar" aria-label="ملخص الطلب">
+    <div class="mobile-total">
+      <small>الإجمالي</small>
+      <strong id="mobile-total">0 د.إ</strong>
+    </div>
+    <button class="mobile-jump" id="mobile-jump" type="button">اختيار الموعد</button>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog class="success-dialog" id="success-dialog" aria-labelledby="success-title">
+    <div class="success-content">
+      <div class="success-seal" aria-hidden="true"><span class="material-symbols-rounded">done</span></div>
+      <h2 id="success-title">تم تأكيد الحجز</h2>
+      <p>سنجهّز طلبك في الموعد المحدد</p>
+      <div class="booking-number" id="booking-number">رقم الحجز P48-0000</div>
+      <div class="success-card" id="success-card"></div>
+      <div class="dialog-actions">
+        <button class="primary-button" type="button" id="copy-booking">نسخ تفاصيل الحجز</button>
+        <button class="secondary-button" type="button" id="close-dialog">العودة للرئيسية</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const names = {
+        margherita: "مارغريتا",
+        pepperoni: "ببروني",
+        truffle: "ترافل",
+        veggie: "خضار"
+      };
+
+      const monthNames = [
+        "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
+        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+      ];
+
+      const state = {
+        quantities: { margherita: 0, pepperoni: 0, truffle: 0, veggie: 0 },
+        selectedDate: null,
+        selectedTime: null,
+        hotHoney: false
+      };
+
+      const els = {
+        dateTabs: document.getElementById("date-tabs"),
+        calendar: document.getElementById("calendar-input"),
+        dateFeedback: document.getElementById("date-feedback"),
+        timeGrid: document.getElementById("time-grid"),
+        form: document.getElementById("booking-form"),
+        phone: document.getElementById("phone"),
+        plate: document.getElementById("plate"),
+        carColor: document.getElementById("car-color"),
+        honey: document.getElementById("hot-honey"),
+        orderMini: document.getElementById("order-mini"),
+        mobileTotal: document.getElementById("mobile-total"),
+        mobileJump: document.getElementById("mobile-jump"),
+        toast: document.getElementById("toast"),
+        dialog: document.getElementById("success-dialog"),
+        successCard: document.getElementById("success-card"),
+        bookingNumber: document.getElementById("booking-number"),
+        copyBooking: document.getElementById("copy-booking"),
+        closeDialog: document.getElementById("close-dialog")
+      };
+
+      const pad = value => String(value).padStart(2, "0");
+      const toISO = date => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+      const fromISO = value => {
+        const [year, month, day] = value.split("-").map(Number);
+        return new Date(year, month - 1, day);
+      };
+
+      function nextDayOfWeek(dayIndex, includeToday = true) {
+        const today = new Date();
+        today.setHours(12, 0, 0, 0);
+        let offset = (dayIndex - today.getDay() + 7) % 7;
+        if (!includeToday && offset === 0) offset = 7;
+        const date = new Date(today);
+        date.setDate(today.getDate() + offset);
+        return date;
+      }
+
+      function formatDate(date) {
+        const dayName = date.getDay() === 5 ? "الجمعة" : "السبت";
+        return `${dayName} ${date.getDate()} ${monthNames[date.getMonth()]}`;
+      }
+
+      function formatTime(hour, minute) {
+        const displayHour = hour % 12 || 12;
+        return `${displayHour}:${minute === 0 ? "00" : "30"} م`;
+      }
+
+      function availableDates() {
+        const friday = nextDayOfWeek(5);
+        const saturday = nextDayOfWeek(6);
+        if (saturday < friday) saturday.setDate(saturday.getDate() + 7);
+        return [friday, saturday];
+      }
+
+      function renderDates() {
+        const dates = availableDates();
+        els.dateTabs.innerHTML = "";
+
+        dates.forEach((date, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "date-tab";
+          button.dataset.date = toISO(date);
+          button.textContent = formatDate(date);
+          button.setAttribute("aria-pressed", String(index === 0));
+          if (index === 0) button.classList.add("is-selected");
+          button.addEventListener("click", () => selectDate(date));
+          els.dateTabs.appendChild(button);
+        });
+
+        const today = new Date();
+        els.calendar.min = toISO(today);
+        selectDate(dates[0], false);
+      }
+
+      function selectDate(date, announce = true) {
+        if (![5, 6].includes(date.getDay())) {
+          els.dateFeedback.textContent = "الحجز متاح يومي الجمعة والسبت فقط";
+          return false;
+        }
+
+        state.selectedDate = new Date(date);
+        state.selectedDate.setHours(12, 0, 0, 0);
+        els.calendar.value = toISO(state.selectedDate);
+        els.dateFeedback.textContent = "";
+
+        document.querySelectorAll(".date-tab").forEach(button => {
+          const selected = button.dataset.date === toISO(state.selectedDate);
+          button.classList.toggle("is-selected", selected);
+          button.setAttribute("aria-pressed", String(selected));
+        });
+
+        const knownButton = [...document.querySelectorAll(".date-tab")]
+          .some(button => button.dataset.date === toISO(state.selectedDate));
+
+        if (!knownButton) {
+          const buttons = [...document.querySelectorAll(".date-tab")];
+          const target = state.selectedDate.getDay() === 5 ? buttons[0] : buttons[1];
+          target.dataset.date = toISO(state.selectedDate);
+          target.textContent = formatDate(state.selectedDate);
+          target.classList.add("is-selected");
+          target.setAttribute("aria-pressed", "true");
+        }
+
+        renderTimes();
+        if (announce) showToast(`تم اختيار ${formatDate(state.selectedDate)}`);
+        return true;
+      }
+
+      function renderTimes() {
+        const friday = state.selectedDate.getDay() === 5;
+        const startHour = friday ? 19 : 13;
+        const endHour = 23;
+        const slots = [];
+
+        for (let minutes = startHour * 60; minutes <= endHour * 60; minutes += 30) {
+          slots.push({ hour: Math.floor(minutes / 60), minute: minutes % 60 });
+        }
+
+        els.timeGrid.innerHTML = "";
+        state.selectedTime = formatTime(slots[0].hour, slots[0].minute);
+
+        slots.forEach((slot, index) => {
+          const label = formatTime(slot.hour, slot.minute);
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "time-slot";
+          button.textContent = label;
+          button.dataset.time = label;
+          button.setAttribute("aria-pressed", String(index === 0));
+          if (index === 0) button.classList.add("is-selected");
+          button.addEventListener("click", () => {
+            state.selectedTime = label;
+            document.querySelectorAll(".time-slot").forEach(item => {
+              const selected = item === button;
+              item.classList.toggle("is-selected", selected);
+              item.setAttribute("aria-pressed", String(selected));
+            });
+          });
+          els.timeGrid.appendChild(button);
+        });
+      }
+
+      function totalItems() {
+        return Object.values(state.quantities).reduce((sum, quantity) => sum + quantity, 0);
+      }
+
+      function totalPrice() {
+        let total = 0;
+        document.querySelectorAll(".pizza-row").forEach(row => {
+          total += state.quantities[row.dataset.item] * Number(row.dataset.price);
+        });
+        if (state.hotHoney && state.quantities.pepperoni > 0) total += 4;
+        return total;
+      }
+
+      function updateOrderSummary() {
+        const count = totalItems();
+        const total = totalPrice();
+        const honeyAllowed = state.quantities.pepperoni > 0;
+
+        if (!honeyAllowed && state.hotHoney) {
+          state.hotHoney = false;
+          els.honey.checked = false;
+        }
+
+        els.honey.disabled = !honeyAllowed;
+        els.honey.closest(".honey-control").style.opacity = honeyAllowed ? "1" : "0.55";
+        els.mobileTotal.textContent = `${total} د.إ`;
+        els.orderMini.textContent = count
+          ? `${count} ${count === 1 ? "بيتزا" : "بيتزا"} · الإجمالي ${total} د.إ · الاستلام من السيارة`
+          : "اختر بيتزتك أولًا · الاستلام من السيارة في الشارقة";
+      }
+
+      function setQuantity(row, delta) {
+        const key = row.dataset.item;
+        const next = Math.max(0, Math.min(9, state.quantities[key] + delta));
+        state.quantities[key] = next;
+        row.querySelector(".qty-value").textContent = next;
+        row.classList.toggle("has-quantity", next > 0);
+        updateOrderSummary();
+      }
+
+      function showToast(message) {
+        els.toast.textContent = message;
+        els.toast.classList.add("is-visible");
+        window.clearTimeout(showToast.timer);
+        showToast.timer = window.setTimeout(() => els.toast.classList.remove("is-visible"), 2800);
+      }
+
+      function clearInvalid() {
+        document.querySelectorAll(".input-wrap.is-invalid").forEach(item => item.classList.remove("is-invalid"));
+      }
+
+      function validateForm() {
+        clearInvalid();
+
+        if (totalItems() === 0) {
+          showToast("اختر بيتزا واحدة على الأقل قبل تأكيد الحجز");
+          document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
+          return false;
+        }
+
+        const phoneDigits = els.phone.value.replace(/\D/g, "");
+        if (phoneDigits.length < 9) {
+          document.querySelector('[data-field="phone"]').classList.add("is-invalid");
+          els.phone.focus();
+          showToast("أدخل رقم جوال صحيحًا");
+          return false;
+        }
+
+        if (!els.plate.value.trim()) {
+          document.querySelector('[data-field="plate"]').classList.add("is-invalid");
+          els.plate.focus();
+          showToast("أدخل رقم لوحة السيارة");
+          return false;
+        }
+
+        if (!els.carColor.value) {
+          document.querySelector('[data-field="car-color"]').classList.add("is-invalid");
+          els.carColor.focus();
+          showToast("اختر لون السيارة");
+          return false;
+        }
+
+        return true;
+      }
+
+      function orderLines() {
+        return Object.entries(state.quantities)
+          .filter(([, quantity]) => quantity > 0)
+          .map(([key, quantity]) => `${names[key]} × ${quantity}`)
+          .concat(state.hotHoney ? ["عسل حار"] : []);
+      }
+
+      function escapeHTML(value) {
+        return String(value).replace(/[&<>'"]/g, character => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          "'": "&#39;",
+          '"': "&quot;"
+        })[character]);
+      }
+
+      function buildBookingText(reference) {
+        return [
+          "PIZZA 48",
+          `رقم الحجز: ${reference}`,
+          `التاريخ: ${formatDate(state.selectedDate)}`,
+          `الوقت: ${state.selectedTime}`,
+          `الطلب: ${orderLines().join("، ")}`,
+          `الإجمالي: ${totalPrice()} د.إ`,
+          `لوحة السيارة: ${els.plate.value.trim()}`,
+          `لون السيارة: ${els.carColor.value}`,
+          "الاستلام من السيارة · الشارقة"
+        ].join("\n");
+      }
+
+      function showConfirmation() {
+        const reference = `P48-${Math.floor(1000 + Math.random() * 9000)}`;
+        const items = escapeHTML(orderLines().join("، "));
+        const plate = escapeHTML(els.plate.value.trim());
+        const color = escapeHTML(els.carColor.value);
+        els.bookingNumber.textContent = `رقم الحجز ${reference}`;
+        els.successCard.innerHTML = `
+          <div class="success-line"><span>${formatDate(state.selectedDate)}</span><strong>${state.selectedTime}</strong></div>
+          <div class="success-line"><span>الطلب</span><strong>${items}</strong></div>
+          <div class="success-line"><span>الإجمالي</span><strong>${totalPrice()} د.إ</strong></div>
+          <div class="success-line"><span>السيارة</span><strong>${plate} · ${color}</strong></div>
+          <div class="success-line"><span>الاستلام</span><strong>من السيارة · الشارقة</strong></div>
+        `;
+        els.copyBooking.dataset.text = buildBookingText(reference);
+        if (typeof els.dialog.showModal === "function") {
+          els.dialog.showModal();
+        } else {
+          els.dialog.setAttribute("open", "");
+        }
+      }
+
+      document.querySelectorAll(".pizza-row").forEach(row => {
+        row.querySelector(".qty-plus").addEventListener("click", () => setQuantity(row, 1));
+        row.querySelector(".qty-minus").addEventListener("click", () => setQuantity(row, -1));
+      });
+
+      els.honey.addEventListener("change", event => {
+        if (state.quantities.pepperoni === 0) {
+          event.target.checked = false;
+          showToast("أضف بيتزا الببروني أولًا لاختيار العسل الحار");
+          return;
+        }
+        state.hotHoney = event.target.checked;
+        updateOrderSummary();
+      });
+
+      els.calendar.addEventListener("change", event => {
+        if (!event.target.value) return;
+        const date = fromISO(event.target.value);
+        if (!selectDate(date)) event.target.value = toISO(state.selectedDate);
+      });
+
+      els.mobileJump.addEventListener("click", () => {
+        document.getElementById("booking").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      els.form.addEventListener("submit", event => {
+        event.preventDefault();
+        if (validateForm()) showConfirmation();
+      });
+
+      els.copyBooking.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(els.copyBooking.dataset.text || "");
+          els.copyBooking.textContent = "تم نسخ التفاصيل";
+          window.setTimeout(() => els.copyBooking.textContent = "نسخ تفاصيل الحجز", 1800);
+        } catch {
+          showToast("تعذّر النسخ تلقائيًا، يمكنك تصوير تفاصيل الحجز");
+        }
+      });
+
+      els.closeDialog.addEventListener("click", () => els.dialog.close());
+      els.dialog.addEventListener("click", event => {
+        if (event.target === els.dialog) els.dialog.close();
+      });
+
+      [els.phone, els.plate, els.carColor].forEach(input => {
+        input.addEventListener("input", () => input.closest(".input-wrap").classList.remove("is-invalid"));
+        input.addEventListener("change", () => input.closest(".input-wrap").classList.remove("is-invalid"));
+      });
+
+      renderDates();
+      updateOrderSummary();
+    })();
+  </script>
+</body>
+</html>
